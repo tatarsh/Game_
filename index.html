@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Find The Pair</title>
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <div class="main">
+        <div class="wrapper">
+            <h1>Find the Pair</h1>
+        </div>
+
+        <div id="cardDesk" class="desk">
+
+        </div>
+
+        <div id="box_user">
+
+                <input type="number" min="1" max="8" placeholder="width" class="inp">
+                <input type="number" min="1" max="8" placeholder="height" class="inp" >
+                <button id="create" class="animated-button">  
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>Create Game</button>
+
+            <div id="memoryButtons">
+                <input name="btnRestart" type="button" id="btnRestart" value="Restart" class="restart"
+                    onclick="startGame()">
+            </div>
+<div class="errorMessage"></div>
+            <!-- <div id="mem_stats">Find all the pairs!</div> -->
+</div>
+
+    </div>
+    <script src="main.js"></script>
+    <script>
+
+        /*
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+*/
+
+// var m_appPath = "/app/find-the-pair/";
+// var m_cards;
+// var m_openCards;
+// var m_closedCards;
+// var m_images;
+// var m_tries;
+
+// function init_memory(picturePairs)
+// {
+//     if (picturePairs == undefined) 
+//         m_cards = 8;
+//     else
+//         m_cards = picturePairs;
+//     m_openCards = new Array();
+//     m_closedCards = 0;
+//     m_tries = 0;
+//     log_message("Find all the pairs!");
+//     init_grid();
+// }   
+
+// function init_grid()
+// {
+//     var item;
+//     $('#mem-grid').empty();
+//     m_images = new Array();
+//     var sUrl = m_appPath+'getCardImages.php?dir=gallery&cards='+m_cards;
+
+//     $.getJSON(sUrl,'callback=?', function(data){
+//         $('#image_container').empty();
+//         $.each(data, function(key, val) {
+
+//             m_images.push(val);
+
+//         });
+//         m_images.shuffle();
+
+//         var cols = divisor(m_cards * 2);
+//         //var cardSize = Math.ceil(500 / cards * 100) / 100;
+//         var cardSize = Math.ceil(500 / cols * 100) / 100;
+
+//         //console.log("Divisor for "+allCards.toString()+" is "+divisor(allCards).toString());
+//         for (var x = 0; x < m_images.length; x++){
+//             item = $('box_img').clone();
+//             item.attr({'style': ''});
+//             item.find('img').attr('src',m_appPath + '/gallery/'+m_images[x]);
+//             item.click(function(){ 
+//                 clickCard($(this));
+//             });
+//             $('#mem-grid').append(item);
+//         }        
+//         $('.card').addClass('selected');
+//         $('.card').css('width', cardSize+'px');
+//         $('.card').css('height', cardSize+'px');
+//         $('.image').css('width', (cardSize-4).toString()+'px');
+//         $('.image').css('height', (cardSize-4).toString()+'px');
+//         restCards(2000);
+//     });
+// }
+// function divisor(number)
+// {
+//     var start = Math.ceil(Math.sqrt(number))+1;
+//     for (var i = start; i >= 1; i--)
+//     {
+//         if (number % i == 0)
+//         {
+//             break;
+//         }
+//     }
+//     return i;
+// }
+
+// function clickCard(card){
+
+//     if (m_openCards.length == 2) return;
+//     if (card.hasClass("selected")) return;
+//     if (card.hasClass("empty")) return;
+//     card.addClass("selected");
+//     m_openCards.push(card);
+//     checkForPair();
+// }
+
+// function checkForPair(){
+//     if (m_openCards.length != 2) return;
+//     m_tries++;
+//     if (m_openCards[0].html() == m_openCards[1].html()){
+//         m_closedCards++;
+//         closeCards();
+//     } else {
+
+//         restCards(800);
+//     }
+//     var logMessage = "You found " + m_closedCards.toString() + " out of " + m_cards.toString() + " pairs with " + m_tries.toString();
+//     if (m_tries > 1)
+//         logMessage += " tries."
+//     else
+//         logMessage += " try."
+//     log_message(logMessage);
+// }
+
+// function restCards(timeValue){
+//     setTimeout( function() {
+//             $('.card').removeClass('selected');
+//             m_openCards = [];
+//     }, timeValue);
+// }
+
+// function closeCards(){
+//     setTimeout( function() {
+//         while (m_openCards.length > 0) {          
+//             m_openCards.shift().removeClass('selected').addClass('empty');
+//         }
+//         endGame();
+//     }, 400);
+// }
+
+// function endGame(){
+//     //console.log('card count='+$('.card').length);
+//     //console.log('empty count='+$('.empty').length);
+//     if ($('.card').length-1 === $('.empty').length) {
+//         alert("Congratulations, you found them all!");
+//         //init_memory(m_cards);
+//     }
+// }
+
+
+// function changeSize(){
+//     m_cards = $('#selSize').val();
+//     init_memory(m_cards);
+// }
+
+// function restart(){
+//     changeSize();
+// }
+
+// function log_message(msg) {
+//     $("#mem_stats").text(msg);
+// }
+// /////////////////////////////
+// // compatibility ////////////
+// /////////////////////////////
+// function contains(a, obj) {     
+//     for (var i = 0; i < a.length; i++) {         
+//         if (a[i] === obj) {     
+//             m_iFound = m_aWords.indexOf(m_word);
+//             return true;         
+//         }     
+//     }
+//     return false; 
+// } 
+// if(!Array.prototype.indexOf) {
+//     Array.prototype.indexOf = function(elt
+//     /*, from*/
+//     ) {
+//         var len = this.length >>> 0;
+//         var from = Number(arguments[1]) || 0;
+//         from = (from < 0) ? Math.ceil(from) : Math.floor(from);
+//         if (from < 0)
+//             from += len;
+//         for (; from < len; from++) {
+//             if (from in this && this[from] === elt)
+//                 return from;
+//         }
+//         return - 1;
+//     };
+// }
+// String.prototype.capitalize = function() {     
+//     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase(); 
+// }
+
+// Array.prototype.shuffle = function() {
+//     var s = [];
+//     while (this.length) s.push(this.splice(Math.random() * this.length, 1));
+//     while (s.length) this.push(s.pop());
+//     return this;
+// }
+
+// shuffle2 = function(o){ //v1.0
+//     for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+//     return o;
+// };
+
+// function roundNumber(rnum, rlength) { // Arguments: number to round, number of decimal places
+//     var newnumber = Math.round(rnum * Math.pow(10, rlength)) / Math.pow(10, rlength);
+//     return newnumber;
+// }
+    </script>
+
+</body>
+
+</html>
+
+<!--Edu2work compassArrow
+        
+        document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function(){
+        // window.scrollTo({ top: 0, behavior: 'smooth' });
+                let pointer = document.getElementById("pointer"),
+            pointerContainer = document.getElementById("pointer-container"),
+            pointerBox = pointer.getBoundingClientRect(),
+            centerPoint = window.getComputedStyle(pointer).transformOrigin,
+            centers = centerPoint.split(" ");
+
+            function rotatePointer(e) {
+            e.preventDefault();
+            let mouseX = e.clientX,
+            mouseY = e.clientY;
+        if ('ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
+        let touch = e.targetTouches[0];
+            if (touch) {
+            mouseX = touch.pageX;
+            mouseY = touch.pageY;
+            }
+        }
+                let centerY = pointerBox.top + parseInt(centers[1]) - window.scrollY,
+                centerX = pointerBox.left + parseInt(centers[0]) - window.scrollX,
+                    radians = Math.atan2(mouseX - centerX, mouseY - centerY),
+                    degrees = (radians * (180 / Math.PI) * -1) - 42;
+                    pointer.style.transform = 'rotate('+degrees+'deg)';
+        }
+
+        window.addEventListener('mousemove', rotatePointer);
+        window.addEventListener('touchmove', rotatePointer);
+        window.addEventListener('touch', rotatePointer);
+    },2000)
+}); -->
